@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <StateProvider reducer={reducer} initialState={initialState}>
-      <App />
+      hello 
     </StateProvider>
   </React.StrictMode>
 );
