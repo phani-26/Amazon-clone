@@ -44,8 +44,7 @@ function App() {
             path="/"
             element={
               <div>
-                <Header />
-                <Home />
+                hello
               </div>
             }
           />
