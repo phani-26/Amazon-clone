@@ -11,6 +11,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "firebase": "^9.16.0",
+    "noty": "^3.2.0-beta-deprecated",
     "react": "^18.2.0",
     "react-currency-format": "^1.1.0",
     "react-dom": "^18.2.0",
@@ -42,8 +43,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
-  ,
+  },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "repository": {

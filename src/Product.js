@@ -2,6 +2,10 @@ import React from "react";
 import "./Product.css";
 import { actions } from "./Reducer";
 import { useStateValue } from "./StateProvider";
+import Noty from "noty";
+import "noty/lib/noty.css"
+import "noty/lib/themes/mint.css"
+import { render } from "@testing-library/react";
 
 function Product({ id, title, price, rating, url }) {
   const [{ basket }, dispatch] = useStateValue();
@@ -19,6 +23,15 @@ function Product({ id, title, price, rating, url }) {
         url: url,
       },
     });
+   
+    let n = new Noty({
+      type:"success",
+      layout:"topRight",
+      text:`<div class="noty_container"><img src=${url} /> ${title} has been added to basket<div/>`,
+      closeWith:["button", "click"],
+      timeout:2000
+    }).show();
+   console.log( typeof(n), n);
   };
   return (
     <div className="product">
