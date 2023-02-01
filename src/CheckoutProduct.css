@@ -42,21 +42,30 @@
     background-color: white;
     width:fit-content;
     border: 1px solid grey;
-    margin:10px;
     border-radius: 8px;
+    margin:10px;
     margin-left: 0px;
 }
 .product__quantity > *{
     padding: 5px;
 }
+.product__quantity > :hover{
+    color:white;
+    background-color: black;
+}
 
 .remove__qty{
     border-right: 1px solid grey;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 .actual__qty{
     width:25px;
     text-align: center;
+    height: 24px;
 }
 .add__qty{
     border-left: 1px solid grey;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 }

@@ -19,7 +19,7 @@
 .header__logo img {
     width: 100px;
     margin: 15px;
-    padding-top: 20%;
+    padding-top: 10%;  /* according to new logo */
 }
 
 .header__search{
