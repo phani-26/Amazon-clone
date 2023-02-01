@@ -7,7 +7,7 @@ import "noty/lib/noty.css"
 import "noty/lib/themes/mint.css"
 import { render } from "@testing-library/react";
 
-function Product({ id, title, price, rating, url }) {
+function Product({ id, title, price, rating, url, qty }) {
   const [{ basket }, dispatch] = useStateValue();
   let rows = [];
   for (let i = 0; i < rating; i++) rows.push(<p>⭐</p>);
@@ -21,6 +21,7 @@ function Product({ id, title, price, rating, url }) {
         price: price,
         rating: rating,
         url: url,
+        qty:1
       },
     });
    
@@ -31,7 +32,6 @@ function Product({ id, title, price, rating, url }) {
       closeWith:["button", "click"],
       timeout:2000
     }).show();
-   console.log( typeof(n), n);
   };
   return (
     <div className="product">

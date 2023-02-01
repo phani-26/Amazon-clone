@@ -13,6 +13,10 @@ function Header() {
   const handleAuthentication = async () => {
     await signOut(auth);
   };
+  let count =0;
+  basket.forEach(element => {
+    count+=element.qty;
+  });
   return (
     <div className="header">
       <Link to="/">
@@ -56,7 +60,7 @@ function Header() {
           <div className="header__option header__optionBasket">
             <ShoppingCartIcon className="header__optionLineOne" />
             <div className="header__optionLineTwo header__BasketCount">
-              {basket.length}
+              {count}
             </div>
           </div>
         </Link>

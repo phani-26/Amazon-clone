@@ -13,7 +13,7 @@ function Checkout() {
   let totalPrice = 0;
   const items = [];
   for (let i = 0; i < basket.length; i++) {
-    totalPrice += parseFloat(basket[i].price);
+    totalPrice += parseFloat(basket[i].price)*basket[i].qty;
     items.push(
       <CheckoutProduct
         id={basket[i].id}
@@ -21,9 +21,16 @@ function Checkout() {
         price={basket[i].price}
         rating={basket[i].rating}
         url={basket[i].url}
+        qty={basket[i].qty}
       />
     );
   }
+  
+  let count =0;
+  basket.forEach(element => {
+    count+=element.qty;
+  });
+
   return (
     <div className="checkout">
       <div className="checkout__left">
@@ -40,7 +47,7 @@ function Checkout() {
       </div>
       <div className="checkout__right">
         <p>
-          Subtotal {"("} {basket.length} {")"} items :
+          Subtotal {"("} {count} {")"} items :
           <strong>
             <CurrencyFormat
               decimalScale={2}

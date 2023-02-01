@@ -17,9 +17,13 @@
     flex-direction: column;
     width:100%;
 }
+
 .product__info h2{
     margin:0px;
     font-size: 1em;
+}
+.product__rating p{
+    margin:0px;
 }
 .button{
     color:black;
@@ -27,7 +31,32 @@
     border: 1px solid;
     border-color:#a88734 #9c7e31 #846a29;
     padding:2px;
-    width:50%;
+    width:100%;
     justify-content: flex-start;
     align-items: flex-start;
+}
+
+.product__quantity{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    width:fit-content;
+    border: 1px solid grey;
+    margin:10px;
+    border-radius: 8px;
+    margin-left: 0px;
+}
+.product__quantity > *{
+    padding: 5px;
+}
+
+.remove__qty{
+    border-right: 1px solid grey;
+}
+.actual__qty{
+    width:25px;
+    text-align: center;
+}
+.add__qty{
+    border-left: 1px solid grey;
 }
