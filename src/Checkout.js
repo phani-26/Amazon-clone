@@ -7,6 +7,7 @@ import Product from "./Product";
 import { useStateValue } from "./StateProvider";
 import "./CheckoutProduct.css";
 import CheckoutProduct from "./CheckoutProduct";
+import FlipMove from "react-flip-move";
 function Checkout() {
   let [{ user, basket }, dispatch] = useStateValue();
   console.log("user and basket ", user, basket);
@@ -16,6 +17,7 @@ function Checkout() {
     totalPrice += parseFloat(basket[i].price)*basket[i].qty;
     items.push(
       <CheckoutProduct
+        key={basket[i].id}
         id={basket[i].id}
         title={basket[i].title}
         price={basket[i].price}
@@ -43,10 +45,10 @@ function Checkout() {
           {" "}
           Hello {user != null ? user.email : "Guest"} &nbsp; Your Shopping Cart
         </h2>
-        <div className="products__cart">{items}</div>
+        <div className="products__cart"><FlipMove>{items}</FlipMove></div>
       </div>
       <div className="checkout__right">
-        <p>
+        <p> 
           Subtotal {"("} {count} {")"} items :
           <strong>
             <CurrencyFormat

@@ -1,14 +1,48 @@
 import React from "react";
 import "./Home.css";
 import Product from "./Product";
+import AliceCarousel from "react-alice-carousel";
+import 'react-alice-carousel/lib/alice-carousel.css'
 
 function Home() {
+
+  const properties = {
+    buttonsDisabled: true,
+        ControlsStrategy:"responsive",
+        disableDotsControls: false,
+        disableButtonsControls: false,
+        infinite:true,
+        autoPlay: true,
+        autoHeight: true,
+        duration: 1000,
+        mouseTrackingEnabled: false,
+        touchTrackingEnabled: false,
+        swipeDisabled: true,
+        preventEventOnTouchMove: true,
+        autoPlayInterval: 1000,
+        disableAutoPlayOnAction: false,
+        autoPlayStrategy:"action"
+  }
+  const images = [
+    "./slide/slide_1.jpg",
+    "./slide/slide_2.jpg",
+    "./slide/slide_3.jpg",
+    "./slide/slide_4.jpg",
+    "./slide/slide_5.jpg",
+    "./slide/slide_6.jpg"
+  ]
+
   return (
     <div className="home">
-      <img
+      
+      <AliceCarousel {...properties}>
+        {images.map((x,i) => <img className="home__image" src={require(`${x}`)} alt="sliding image" />)}
+      </AliceCarousel>
+  
+      {/* <img
         className="home__image"
         src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg"
-      />
+      /> */}
       <div className="home__row">
         <Product
           id="12321341"

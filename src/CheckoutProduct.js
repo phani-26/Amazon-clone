@@ -1,11 +1,14 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { actions } from "./Reducer";
 import { useStateValue } from "./StateProvider";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function CheckoutProduct({ id, title, price, rating, url, qty }) {
+// forward ref is used for react flip which needs ref (reference) to work, forwardRef accepts a
+// arrow function, in which ref is the reference 
+
+const CheckoutProduct = forwardRef(({ key, id, title, price, rating, url, qty }, ref) => {
   let stars = [];
   for (let i = 0; i < rating; i++) stars.push(<p>⭐</p>);
 
@@ -14,6 +17,7 @@ function CheckoutProduct({ id, title, price, rating, url, qty }) {
     dispatch({
       type: actions.RemoveFromBasket,
       item: {
+        key: key,
         id: id,
         title: title,
         price: price,
@@ -53,7 +57,7 @@ function CheckoutProduct({ id, title, price, rating, url, qty }) {
   }
 
   return (
-    <div className="checkoutProduct">
+    <div ref = {ref} className="checkoutProduct">
       <div className="checkout__image">
         <img src={url} />
       </div>
@@ -75,6 +79,6 @@ function CheckoutProduct({ id, title, price, rating, url, qty }) {
       </div>
     </div>
   );
-}
+  });
 
 export default CheckoutProduct;
