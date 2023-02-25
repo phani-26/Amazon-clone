@@ -1,13 +1,12 @@
-import { ListItemSecondaryAction } from "@mui/material";
 import React from "react";
 import CurrencyFormat from "react-currency-format";
-import { NumberFormatBase } from "react-number-format";
 import "./Checkout.css";
-import Product from "./Product";
 import { useStateValue } from "./StateProvider";
 import "./CheckoutProduct.css";
 import CheckoutProduct from "./CheckoutProduct";
+import Payment from "./Payment";
 import FlipMove from "react-flip-move";
+import { Link } from "react-router-dom";
 function Checkout() {
   let [{ user, basket }, dispatch] = useStateValue();
   console.log("user and basket ", user, basket);
@@ -64,7 +63,7 @@ function Checkout() {
           <input type={"checkbox"} />
           This order contains a gift
         </div>
-        <button className="checkout__button">Proceed to Checkout</button>
+        <Link className="link" to="/payment"><button className="checkout__button">Proceed to Checkout</button></Link>
       </div>
     </div>
   );

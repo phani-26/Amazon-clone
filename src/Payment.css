@@ -1,0 +1,13 @@
+.payment__container{
+    display: flex;
+    flex-direction: column;
+}
+
+.payment__section{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid grey;
+}
+.payment__section *{
+    flex:1;
+}
