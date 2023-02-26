@@ -3,8 +3,8 @@ import { useStateValue } from "./StateProvider";
 import "./Payment.css";
 import { Link } from "react-router-dom";
 import CheckoutProduct from "./CheckoutProduct";
-import {CardElement, useStripe, useElements, Elements} from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
+import CurrencyFormat from "react-currency-format";
 
 function Payment(){
     const [data, user]  = useStateValue();
@@ -32,17 +32,27 @@ function Payment(){
         />
       );
     }
-
+  console.log("check");
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(false);
+    const [processing, setProcessing] = useState(false);
+    const [succeeded, setSucceeded] = useState(false);
+    const stripe = useStripe();
+    const element = useElements();
 
-    const handleSubmit = (e) => {
-console.log(e);
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setProcessing(true);
+
+      const result = await stripe.confirmPayment();
+
     }
     const handleChange = (e) =>{
+        //if no value is present in card
         setDisabled(e.empty);
         setError(e.error? e.error.message: "");
     }
+
     return(
         <div className="payment__container">
             <h2>CHECKOUT (
@@ -56,7 +66,7 @@ console.log(e);
                 <h2>Delivery Address</h2>
                 </div>
                 <div className="payment__address">
-                    <p>user?.email</p>
+                    <p>{user?.email}</p>
                     <p>123 LA</p>
                     <p>Dorkwood street</p>
                 </div>
@@ -73,8 +83,25 @@ console.log(e);
                 <div className="payment__title">
                     <h2>PAYMENT Method</h2>
                 </div>
-                <div>
+                <div className="payment__card">
                    <CardElement onChange={handleChange}/>
+
+                   <div className="payment__price_container">
+                    <CurrencyFormat
+                    renderText={(val) =>{
+                        return <h3> Order Total: {val} </h3>
+                    }}
+                     decimalScale={2}
+                     thousandSeparator={true}
+                     value={totalPrice}
+                     displayType={"text"}
+                     prefix={"$"}
+
+                    />
+                    <button className="payment__buyButton"
+                    disabled={disabled || processing || succeeded}>
+                        Buy Now</button>
+                   </div>
                 </div>
             </div>
             

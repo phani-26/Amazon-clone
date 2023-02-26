@@ -11,3 +11,7 @@
 .payment__section *{
     flex:1;
 }
+
+.payment__card{
+    padding: 20px 0px;
+}
