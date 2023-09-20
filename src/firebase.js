@@ -32,8 +32,8 @@ const firebaseConfig = {
   appId: "1:763115650172:web:e3cdb397f439a173901df9",
   measurementId: "G-QGYM63MR6V",
 };
-
-// Initialize Firebase
+console.log("It's running when ever necessary");
+// Initialize Firebase 
 const app = initializeApp(firebaseConfig);
 export {
   GoogleAuthProvider,

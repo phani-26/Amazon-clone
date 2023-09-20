@@ -11,7 +11,7 @@ function Product({ id, title, price, rating, url, qty }) {
   const [{ basket }, dispatch] = useStateValue();
   let rows = [];
   for (let i = 0; i < rating; i++) rows.push(<p>⭐</p>);
-  console.log("hello ", basket);
+  // console.log("hello ", basket);
   const addToBasket = () => {
     dispatch({
       type: actions.AddToBasket,

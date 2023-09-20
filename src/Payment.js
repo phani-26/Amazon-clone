@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStateValue } from "./StateProvider";
 import "./Payment.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import CheckoutProduct from "./CheckoutProduct";
-import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
+import {CardElement, useStripe, useElements, Elements} from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
+import axios from "axios";
+import { actions } from "./Reducer";
+import { act } from "react-dom/test-utils";
+
 
 function Payment(){
-    const [data, user]  = useStateValue();
+    const [data, dispatch]  = useStateValue();
+    const user =data.user;
     const basket = data.basket;
     const count = () =>{
         var sum=0;
         for(let i=0;i<basket.length;i++){
-        sum+=basket[i].qty; console.log("Hey! man, "+basket[i]);
+        sum+=basket[i].qty; //console.log("Hey! man, "+basket[i]);
         }
        return sum;
     }
+    const calculatePrice = (bas) => {
+        var totalP =0;
+        for (let i = 0; i < bas.length; i++) {
+            totalP += parseFloat(bas[i].price)*bas[i].qty;
+        return totalP;
+    }
+ }
     var totalPrice = 0;
     const items = [];
     for (let i = 0; i < basket.length; i++) {
@@ -32,19 +44,52 @@ function Payment(){
         />
       );
     }
-  console.log("check");
+
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [succeeded, setSucceeded] = useState(false);
+    const [clientSecret, setClientSecret] = useState(true);
     const stripe = useStripe();
-    const element = useElements();
+    const elements = useElements();
+    const navigate= useNavigate();
 
+    useEffect(() =>{
+       const getClientSecretKey= async () => {
+        const response = await axios (
+        {
+            method:"GET",
+            // stripe expects total currency in sub units
+            url:`https://zany-disco-75jrjgvv7vg3xrrq-5001.app.github.dev/clone-5be04/us-central1/api/create/payment?totalPrice=${calculatePrice(data.basket)*100}`
+        });
+        console.log("secret: ",response.data.client_secret)
+        setClientSecret(response.data.client_secret);
+       
+
+    };
+    getClientSecretKey();
+
+    },[data.basket]);
     const handleSubmit = async (e) => {
       e.preventDefault();
       setProcessing(true);
-
-      const result = await stripe.confirmPayment();
+      console.log("secret1 : ",clientSecret);
+      const result = await stripe.confirmCardPayment( clientSecret, {
+        payment_method:{
+          card: elements.getElement(CardElement)
+        } 
+    }).then(function(results){
+        console.log("results: ",results);
+        console.log("PaymentIntent: ",results.paymentIntent);
+        setSucceeded(true);
+        setError(null);
+        setProcessing(false);
+        dispatch({
+             type: actions.EmptyBasket
+        })
+        navigate("/");
+    });
+    
 
     }
     const handleChange = (e) =>{
@@ -99,7 +144,8 @@ function Payment(){
 
                     />
                     <button className="payment__buyButton"
-                    disabled={disabled || processing || succeeded}>
+                    disabled={disabled || processing || succeeded}
+                    onClick={handleSubmit}>
                         Buy Now</button>
                    </div>
                 </div>

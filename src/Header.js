@@ -36,7 +36,7 @@ function Header() {
       </div>
       <div className="header__nav">
         <div className="header__option">
-          <Link to={!user && "/login"} className="link">
+          <Link to={!user &&"/login"} className="link">
             <div className="header__optionLineOne ">
               Hello {user ? user.email : "Guest"}
             </div>

@@ -12,6 +12,8 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.5.0",
+    "caniuse-lite": "^1.0.30001535",
     "firebase": "^9.16.0",
     "noty": "^3.2.0-beta-deprecated",
     "react": "^18.2.0",
@@ -58,5 +60,6 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/phani-26/Amazon-clone/issues"
-  }
+  },
+  "homepage": "https://phani-26.github.io/Amazon-clone"
 }

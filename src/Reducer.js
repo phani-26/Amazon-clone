@@ -60,6 +60,11 @@ export const reducer = (state, action) => {
         ...state,
         user: null,
       };
+      case actions.EmptyBasket:
+        return{
+          ...state,
+          basket:[]
+        }
     default:
       return state;
   }
@@ -71,6 +76,7 @@ export const actions = {
   ReduceQuantityBy1: "REDUCE_QTY_BY_1",
   AddUser: "ADD_USER",
   RemoveUser: "REMOVE_USER",
+  EmptyBasket:"EMPTY_BASKET"
 };
 
 export default reducer;
