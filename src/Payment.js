@@ -5,7 +5,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import CheckoutProduct from "./CheckoutProduct";
 import {CardElement, useStripe, useElements, Elements} from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
-import axios from "axios";
+import axios from "./Axios";
 import { actions } from "./Reducer";
 import {db} from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
@@ -25,6 +25,8 @@ function Payment(){
     const calculatePrice = (bas) => {
         var totalP =0;
         for (let i = 0; i < bas.length; i++) {
+            console.log("price ", bas[i].price, "qty ", bas[i].qty);
+            console.log("t" , parseFloat(bas[i].price)*bas[i].qty);
             totalP += parseFloat(bas[i].price)*bas[i].qty;
         return totalP;
     }
@@ -61,7 +63,7 @@ function Payment(){
         {
             method:"GET",
             // stripe expects total currency in sub units
-            url:`https://zany-disco-75jrjgvv7vg3xrrq-5001.app.github.dev/clone-5be04/us-central1/api/create/payment?totalPrice=${calculatePrice(data.basket)*100}`
+            url:`create/payment?totalPrice=${calculatePrice(data.basket)*100}`
         });
         // console.log("secret: ",response.data.client_secret)
         setClientSecret(response.data.client_secret);
