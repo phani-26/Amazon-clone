@@ -8,11 +8,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 // forward ref is used for react flip which needs ref (reference) to work, forwardRef accepts a
 // arrow function, in which ref is the reference 
 
-const CheckoutProduct = forwardRef(({ key, id, title, price, rating, url, qty }, ref) => {
+const CheckoutProduct = forwardRef(({ key, id, title, price, rating, url, qty,hideEdit=false }, ref) => {
   let stars = [];
   for (let i = 0; i < rating; i++) stars.push(<p>⭐</p>);
 
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ user, basket }, dispatch] = useStateValue();
   const removeFromBasket = () => {
     dispatch({
       type: actions.RemoveFromBasket,
@@ -68,6 +68,7 @@ const CheckoutProduct = forwardRef(({ key, id, title, price, rating, url, qty },
           <strong>{price}</strong>
         </div>
         <div className="product__rating">{stars}</div>
+        {!hideEdit ? (<div>  
         <div className="product__quantity">
         {qty===1? <DeleteIcon className="remove__qty" onClick={reduceQuantity}/> : <RemoveIcon className="remove__qty" onClick={reduceQuantity}/>}
         <div className="actual__qty">{qty}</div>
@@ -76,6 +77,9 @@ const CheckoutProduct = forwardRef(({ key, id, title, price, rating, url, qty },
         <button className="button" onClick={removeFromBasket}>
           Remove from Basket
         </button>
+        </div>) 
+        : (<strong>qty: {qty}</strong>)
+        }
       </div>
     </div>
   );

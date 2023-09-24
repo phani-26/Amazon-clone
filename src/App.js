@@ -11,7 +11,7 @@ import { actions } from "./Reducer";
 import Payment from "./Payment";
 import PaymentPortal from "./PaymentPortal";
 import { DepartureBoard } from "@mui/icons-material";
-
+import Orders from "./Orders";
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
@@ -20,7 +20,7 @@ function App() {
       if (authUser) {
         dispatch({
           type: actions.AddUser,
-          user: authUser,
+          user: authUser.email,
         });
       } else {
         dispatch({
@@ -35,11 +35,17 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/orders" element={
+          <div>
+            <Header />
+            <Orders />
+          </div>
+          } />  
           <Route path="/payment" element={
           <div>
             <Header />
-                <PaymentPortal />
-            </div>
+            <PaymentPortal />
+          </div>
           } 
           />
           <Route

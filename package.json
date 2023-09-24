@@ -15,6 +15,7 @@
     "axios": "^1.5.0",
     "caniuse-lite": "^1.0.30001535",
     "firebase": "^9.16.0",
+    "moment": "^2.29.4",
     "noty": "^3.2.0-beta-deprecated",
     "react": "^18.2.0",
     "react-alice-carousel": "^2.7.0",

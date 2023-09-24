@@ -30,7 +30,7 @@ export const reducer = (state, action) => {
           "Cannot remove because no element is present with id ",
           action.item.id
         );
-      }console.log("reduce ",state, newBasket);
+      }
       return {
         ...state,
         basket: newBasket,
@@ -45,12 +45,13 @@ export const reducer = (state, action) => {
           "Cannot remove because no element is present with id ",
           action.item.id
         );
-      } console.log("remove ",state, newBasket);
+      }
       return {
         ...state,
         basket: newBasket,
       };
     case actions.AddUser:
+      // console.log("user act", action.user);
       return {
         ...state,
         user: action.user,

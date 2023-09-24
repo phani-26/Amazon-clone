@@ -9,7 +9,6 @@ import { auth, signOut } from "./firebase";
 import { actions } from "./Reducer";
 function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
-
   const handleAuthentication = async () => {
     await signOut(auth);
   };
@@ -38,7 +37,7 @@ function Header() {
         <div className="header__option">
           <Link to={!user &&"/login"} className="link">
             <div className="header__optionLineOne ">
-              Hello {user ? user.email : "Guest"}
+              Hello {user ? user : "Guest"}
             </div>
             <div
               className="header__optionLineTwo "
@@ -48,10 +47,12 @@ function Header() {
             </div>
           </Link>
         </div>
+        <Link to='/orders' className="link">
         <div className="header__option">
           <div className="header__optionLineOne">Returns</div>
           <div className="header__optionLineTwo">& Orders</div>
         </div>
+        </Link>
         <div className="header__option">
           <div className="header__optionLineOne">Your</div>
           <div className="header__optionLineTwo">Prime</div>

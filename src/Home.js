@@ -34,7 +34,6 @@ function Home() {
 
   return (
     <div className="home">
-      
       <AliceCarousel {...properties}>
         {images.map((x,i) => <img className="home__image" src={require(`${x}`)} alt="sliding image" />)}
       </AliceCarousel>

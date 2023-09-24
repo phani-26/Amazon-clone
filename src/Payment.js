@@ -7,7 +7,8 @@ import {CardElement, useStripe, useElements, Elements} from "@stripe/react-strip
 import CurrencyFormat from "react-currency-format";
 import axios from "axios";
 import { actions } from "./Reducer";
-import { act } from "react-dom/test-utils";
+import {db} from "./firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 
 function Payment(){
@@ -62,32 +63,37 @@ function Payment(){
             // stripe expects total currency in sub units
             url:`https://zany-disco-75jrjgvv7vg3xrrq-5001.app.github.dev/clone-5be04/us-central1/api/create/payment?totalPrice=${calculatePrice(data.basket)*100}`
         });
-        console.log("secret: ",response.data.client_secret)
+        // console.log("secret: ",response.data.client_secret)
         setClientSecret(response.data.client_secret);
        
 
     };
     getClientSecretKey();
-
-    },[data.basket]);
+    },[data]);
     const handleSubmit = async (e) => {
       e.preventDefault();
+
       setProcessing(true);
-      console.log("secret1 : ",clientSecret);
       const result = await stripe.confirmCardPayment( clientSecret, {
         payment_method:{
           card: elements.getElement(CardElement)
         } 
     }).then(function(results){
         console.log("results: ",results);
-        console.log("PaymentIntent: ",results.paymentIntent);
         setSucceeded(true);
         setError(null);
         setProcessing(false);
+
         dispatch({
              type: actions.EmptyBasket
         })
-        navigate("/");
+        const ref = doc(db, "users", user, "orders", results.paymentIntent.id);
+        setDoc(ref, {
+            basket: basket, 
+            created: results.paymentIntent.created,
+            amount: results.paymentIntent.amount
+        });
+        navigate("/orders");
     });
     
 

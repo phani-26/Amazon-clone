@@ -30,9 +30,7 @@ function Login() {
   const handleSubmit = async (email, password) => {
     try {
       //auth means auth for this app,
-      await console.log("before signin utton ", auth);
-      await signInWithEmailAndPassword(auth, email, password);
-      await console.log("after signin utton ", auth);
+      await signInWithEmailAndPassword(auth, email, password);  
       dispatch({ type: actions.AddUser, user: email });
       await navigate("/");
     } catch (err) {
@@ -46,7 +44,10 @@ function Login() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((auth) => {
         console.log(auth);
-        if (auth) navigate("/");
+        if (auth){
+          dispatch({ type: actions.AddUser, user: email });
+           navigate("/");
+        }
       })
       .catch((err) => {
         console.error(err);
