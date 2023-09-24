@@ -4,6 +4,10 @@ const logger = require("firebase-functions/logger");
 const express = require("express");
 const cors = require("cors");
 const stripe = require("stripe")("sk_test_51MfcsVSFo2jxqtMCnO2epBtedbZQXejC5cTJEp1qybS4GY3f6dcqWMsvlgXIbJIidr8ziwIOJI2nRqg8m8bl4kYG00tUC3zcuK");
+
+const {setGlobalOptions} = require("firebase-functions/v2");
+setGlobalOptions({maxInstances: 10});
+
 // APP
 const app = express();
 // APP MIDDLEWARES
